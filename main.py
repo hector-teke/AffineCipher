@@ -84,6 +84,8 @@ class Window(QWidget):
 
     def generate_layout(self):
 
+        # Keys ############################################
+
         keys_title_height = 20
         keys_title = QLabel(self)
         keys_title.setText("Keys:")
@@ -251,3 +253,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Window()
     sys.exit(app.exec())
+

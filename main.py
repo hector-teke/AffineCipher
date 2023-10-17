@@ -30,6 +30,7 @@ def numbertostr(numseq):  # Convert each index [0-25] into its assigned characte
 
 def encrypt(OT, a, b):  # Encrypting function: CT = (OT(letter)*a + b) mod 26
 
+    OT = OT.replace(" ", "XSPACEX")    # Support for blank spaces
     numseq = strtonumber(OT.upper())  # Obtains the numbers sequence from the given string
     cipherseq = []
 
@@ -52,13 +53,15 @@ def modularinverse(a):  # Finds the modular inverse of a
 
 def decrypt(CT, a, b):  # Decrypting function: OT = ((CT - b)*(a^-1)) mod 26
 
+    CT = CT.replace(" ","") # Remove every blank space
     numseq = strtonumber(CT)  # Obtains the numbers sequence from the given string
     sequence = []
     inverse = modularinverse(a)
 
     for n in numseq:
         sequence.append(((n - b) * inverse) % 26)
-    return numbertostr(sequence)
+
+    return numbertostr(sequence).replace("XSPACEX", " ")    # Support for blank spaces
 
 
 def check_a(a):  # Check the value of "a"
@@ -186,7 +189,7 @@ class Window(QWidget):
         if text == "":
             self.opentextIsValid = False
             self.ot_valid_info.setText("Empty string")
-        elif not text.isalpha():
+        elif not text.replace(" ", "X").isalpha():   # Change is only for checking
             self.opentextIsValid = False
             self.ot_valid_info.setText("Only alphabetical characters are allowed")
         else:
@@ -199,7 +202,7 @@ class Window(QWidget):
         if text == "":
             self.ciphertextIsValid = False
             self.ct_valid_info.setText("Empty string")
-        elif not text.isalpha():
+        elif not text.replace(" ", "X").isalpha():
             self.ciphertextIsValid = False
             self.ct_valid_info.setText("Only alphabetical characters are allowed")
         else:

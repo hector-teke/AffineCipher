@@ -27,6 +27,17 @@ def numbertostr(numseq):  # Convert each index [0-25] into its assigned characte
 
     return sequence
 
+def split(s, each=5):
+    new = ""
+
+    for i in range(0, len(s)):
+        if i % 5 == 0:
+            new += " "
+
+        new += s[i]
+
+    return new
+
 
 def encrypt(OT, a, b):  # Encrypting function: CT = (OT(letter)*a + b) mod 26
 
@@ -37,7 +48,7 @@ def encrypt(OT, a, b):  # Encrypting function: CT = (OT(letter)*a + b) mod 26
     for n in numseq:
         cipherseq.append((n * a + b) % 26)
 
-    return numbertostr(cipherseq)
+    return split(numbertostr(cipherseq))
 
 
 def modularinverse(a):  # Finds the modular inverse of a
